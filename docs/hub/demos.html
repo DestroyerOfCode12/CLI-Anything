@@ -76,13 +76,15 @@
 
     /* ambient + grain + glass (shared) */
     .ambient { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
-    .ambient i { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.7; }
+    /* no filter:blur() — pre-blurred gradients read the same and cost a fraction on mobile GPUs */
+    .ambient i { position: absolute; border-radius: 50%; opacity: 0.7; }
     .ambient .a { width: 60vw; max-width: 760px; aspect-ratio: 1; top: -18vw; right: -10vw;
-      background: radial-gradient(circle at 38% 38%, hsl(calc(var(--accent-band) + 28) var(--tint-s) 58% / 0.26), transparent 64%); }
+      background: radial-gradient(circle at 38% 38%, hsl(calc(var(--accent-band) + 28) var(--tint-s) 58% / 0.26), hsl(calc(var(--accent-band) + 28) var(--tint-s) 58% / 0.10) 40%, transparent 68%); }
     .ambient .b { width: 50vw; max-width: 620px; aspect-ratio: 1; bottom: -16vw; left: -12vw;
-      background: radial-gradient(circle at 60% 42%, hsl(var(--accent-band) calc(var(--tint-s) + 12%) 56% / 0.24), transparent 62%); }
+      background: radial-gradient(circle at 60% 42%, hsl(var(--accent-band) calc(var(--tint-s) + 12%) 56% / 0.24), hsl(var(--accent-band) calc(var(--tint-s) + 12%) 56% / 0.09) 38%, transparent 66%); }
     .grain { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.04; mix-blend-mode: overlay;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    @media (hover: none), (pointer: coarse) { .grain { display: none; } }
     .glass { position: relative; background: var(--glass-bg-fallback); border: 1px solid var(--glass-border); border-radius: var(--radius); box-shadow: var(--glass-shadow); }
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       .glass { background: var(--glass-bg); -webkit-backdrop-filter: blur(22px) saturate(1.5); backdrop-filter: blur(22px) saturate(1.5); } }
@@ -170,6 +172,8 @@
     /* ===================== Editorial gallery ===================== */
     .editorial { max-width: 1100px; margin: 56px auto 0; padding: 0 22px; display: flex; flex-direction: column; gap: 64px; }
     .ed-row { display: grid; grid-template-columns: 1.22fr 1fr; gap: 40px; align-items: center; }
+    /* grid items default to min-width:auto — media was pushing the page wider than phones */
+    .ed-row > * { min-width: 0; }
     .ed-row:nth-child(even) .ed-media { order: 2; }
     @media (max-width: 840px) { .ed-row { grid-template-columns: 1fr; gap: 22px; } .ed-row:nth-child(even) .ed-media { order: 0; } }
     .ed-num { font-family: 'Newsreader', serif; font-style: italic; font-size: 1.05rem; color: var(--ink-3); }
