@@ -7,6 +7,65 @@ import copy
 from typing import Dict, Any, List, Optional
 
 
+
+def _finite_number(value: Any, name: str) -> float | int:
+    """Reject non-finite values without float-rounding large ints or integer strings."""
+    if isinstance(value, bool):
+        raise ValueError(f"{name} must be a finite number, got {value!r}")
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        if not math.isfinite(value):
+            raise ValueError(f"{name} must be a finite number, got {value!r}")
+        return value
+    if isinstance(value, str):
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            pass
+        try:
+            num = float(value)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{name} must be a finite number, got {value!r}") from exc
+        if not math.isfinite(num):
+            raise ValueError(f"{name} must be a finite number, got {value!r}")
+        return num
+    try:
+        ival = int(value)
+        if ival == value:
+            return ival
+    except Exception:
+        pass
+    try:
+        num = float(value)
+    except Exception as exc:
+        raise ValueError(f"{name} must be a finite number, got {value!r}") from exc
+    if not math.isfinite(num):
+        raise ValueError(f"{name} must be a finite number, got {value!r}")
+    return num
+
+
+def _finite_int(value: Any, name: str) -> int:
+    """Reject non-finite or non-integer-form values without float rounding."""
+    if isinstance(value, bool):
+        raise ValueError(f"{name} must be a finite integer, got {value!r}")
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        if not math.isfinite(value):
+            raise ValueError(f"{name} must be a finite integer, got {value!r}")
+        return int(value)
+    if isinstance(value, str):
+        try:
+            return int(value)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{name} must be a finite integer, got {value!r}") from exc
+    try:
+        val = int(value)
+    except (TypeError, ValueError, ArithmeticError) as exc:
+        raise ValueError(f"{name} must be a finite integer, got {value!r}") from exc
+    return val
+
 def generate_id(items: List[Dict[str, Any]]) -> int:
     """Generate the next unique ID for a list of items."""
     if not items:
@@ -37,16 +96,15 @@ def validate_range(value: float, min_val: float, max_val: float, name: str) -> f
 
 def validate_position(pos: Dict[str, Any]) -> Dict[str, Any]:
     """Validate and normalize a position dict."""
-    return {
-        "x": float(pos.get("x", 0)),
-        "y": float(pos.get("y", 0)),
-    }
+    x = _finite_number(pos.get("x", 0), "Position x")
+    y = _finite_number(pos.get("y", 0), "Position y")
+    return {"x": x, "y": y}
 
 
 def validate_size(size: Dict[str, Any]) -> Dict[str, Any]:
     """Validate and normalize a size dict."""
-    w = int(size.get("width", 1920))
-    h = int(size.get("height", 1080))
+    w = _finite_int(size.get("width", 1920), "Size width")
+    h = _finite_int(size.get("height", 1080), "Size height")
     if w < 1:
         raise ValueError(f"Width must be positive, got {w}")
     if h < 1:
@@ -58,7 +116,7 @@ def validate_crop(crop: Dict[str, Any]) -> Dict[str, Any]:
     """Validate and normalize a crop dict."""
     result = {}
     for key in ("top", "bottom", "left", "right"):
-        val = int(crop.get(key, 0))
+        val = _finite_int(crop.get(key, 0), f"Crop {key}")
         if val < 0:
             raise ValueError(f"Crop {key} must be non-negative, got {val}")
         result[key] = val
