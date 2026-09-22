@@ -5,6 +5,12 @@
 </div>
 
 <p align="center">
+ <a href="https://www.star-history.com/hkuds/cli-anything">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=rank&theme=dark" /><source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=rank" /><img alt="Star History Rank" src="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=rank" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=trending&theme=dark" /><source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=trending" /><img alt="GitHub Trending Repository of the Day" src="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=trending" /></picture>
+ </a>
+</p>
+
+<p align="center">
   <strong>Today's Software Serves Humans👨‍💻. Tomorrow's Users will be Agents🤖.<br>
 CLI-Anything: Bridging the Gap Between AI Agents and the World's Software</strong><br>
 </p>
