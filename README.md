@@ -2,13 +2,10 @@
 
 <div align="center">
 <a href="https://trendshift.io/repositories/22991" target="_blank"><img src="https://trendshift.io/api/badge/repositories/22991" alt="HKUDS%2FCLI-Anything | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-</div>
-
-<p align="center">
- <a href="https://www.star-history.com/hkuds/cli-anything">
+  <a href="https://www.star-history.com/hkuds/cli-anything">
   <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=rank&theme=dark" /><source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=rank" /><img alt="Star History Rank" src="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=rank" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=trending&theme=dark" /><source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=trending" /><img alt="GitHub Trending Repository of the Day" src="https://api.star-history.com/badge?repo=HKUDS/CLI-Anything&type=trending" /></picture>
  </a>
-</p>
+</div>
 
 <p align="center">
   <strong>Today's Software Serves Humans👨‍💻. Tomorrow's Users will be Agents🤖.<br>
